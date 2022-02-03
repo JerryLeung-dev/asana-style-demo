@@ -1,0 +1,23 @@
+<div style="margin-left: 50px">
+  <ng-container *ngIf="isEditing; else readonlyModeTmpl">
+    <div class="display: flex flex-direction: column">
+      <mat-form-field  appearance="outline" floatLabel="never" (focusout)="setEditMode(false)" [hideRequiredMarker]="true">
+        <mat-label></mat-label>
+        <input matInput class="subject-input" id="subject" name="subject" appAutoFocusDirective #subject="ngModel" [(ngModel)]="task.subject" (focusout)="save(subject.value)" placeholder="---" required />
+      </mat-form-field>
+      <mat-error *ngIf="subject.hasError('required')">
+        Please enter the subject
+      </mat-error>
+
+      <!-- <button mat-raised-button color="primary" (click)='setEditMode(false)' class="input-button">Save</button> -->
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #readonlyModeTmpl>
+  <mat-form-field  appearance="outline" floatLabel="never" [hideRequiredMarker]="true" (click)="setEditMode(true)">
+    <mat-label></mat-label>
+    <input *ngIf="!task.subject" matInput class="subject-input" id="subject" name="subject-readonly" disabled value="---"/>
+    <input *ngIf="task.subject" matInput class="subject-input" id="subject" name="subject-readonly" disabled [(ngModel)]="task.subject" />
+  </mat-form-field>
+</ng-template>

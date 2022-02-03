@@ -1,0 +1,29 @@
+
+ <form class="form" [formGroup]="form">
+
+  <!-- <app-input-field [task]="task" (updateSubject)="updateTask($event)"></app-input-field> -->
+
+  <!-- <app-input-field-two [task]="task" (updateSubject)="updateTask($event)"></app-input-field-two> -->
+
+  <!-- <app-select-field [isDisabled]="false" [viewModel]="viewModel"></app-select-field> -->
+
+  <app-input-field-four formControlName="subject" [disabled]="canEdit"></app-input-field-four>
+  <!-- <app-select-field-two></app-select-field-two> -->
+
+  <!-- <app-input-field-three name="task" ngModel></app-input-field-three> -->
+
+
+    <!-- <app-select-field [isDisabled]="false" [viewModel]="viewModel"></app-select-field> -->
+
+    <app-select-field-two formControlName="priority" [items]="viewModel.priorities" controlName="priority" required></app-select-field-two>
+    <app-select-field-two formControlName="assignedTo" [items]="viewModel.users" controlName="assigned to" required></app-select-field-two>
+    <app-select-field-two formControlName="status" [items]="viewModel.status" controlName="status" required></app-select-field-two>
+
+</form>
+
+ <pre>{{ form.value | json }}</pre>
+ <pre>{{ form.valid | json }}</pre>
+ <p *ngIf="!form.valid">Subject is invalid!</p>
+
+
+

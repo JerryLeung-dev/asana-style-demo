@@ -1,0 +1,40 @@
+
+  <mat-form-field appearance="outline" [hideRequiredMarker]="true" style="margin-left: 100px">
+    <mat-select
+      disableRipple
+      disableOptionCentering
+      panelClass="prioritySelect"
+      [formControl]="selectListControl"
+      [required]="required"
+		  (selectionChange)="selectionChange.emit($event)"
+    >
+      <mat-label></mat-label>
+      <mat-select-trigger>
+        <div *ngIf="selectListControl.value" [ngClass]="{
+          'priority-select': controlName === 'priority',
+          low: selectedItem === 'Low',
+          medium: selectedItem === 'Medium',
+          high: selectedItem === 'High'
+        }"></div>
+        <!-- {{selectedItem}} -->
+        <span [ngClass]="{'status-chip': controlName === 'status'}">{{selectedItem }}</span>
+      </mat-select-trigger>
+      <mat-option
+      *ngFor="let item of items"
+      [value]="item.Value"
+      [ngClass]="{
+        'priority-select-option': controlName === 'priority',
+        'low-option': item.Text === 'Low',
+        'medium-option': item.Text === 'Medium',
+        'high-option': item.Text === 'High'
+      }"
+    >
+      <span [ngClass]="{'status-chip': controlName === 'status'}">{{item.Text}}</span>
+    </mat-option>
+    </mat-select>
+    <mat-error *ngIf="selectListControl.hasError('required')">
+      {{controlName | titlecase }} is required
+    </mat-error>
+  </mat-form-field>
+
+

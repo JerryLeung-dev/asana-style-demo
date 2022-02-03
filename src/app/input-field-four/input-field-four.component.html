@@ -1,0 +1,25 @@
+<div [formGroup]="input">
+  <div style="margin-left: 50px">
+    <ng-container>
+        <mat-form-field  appearance="outline" floatLabel="never" (focusout)="setEditMode(false)" [hideRequiredMarker]="true" (click)="setEditMode(true)">
+          <mat-label></mat-label>
+          <input matInput class="subject-input" formControlName="subject" required/>
+          <mat-error *ngIf="subject?.hasError('required')">
+            Please enter the subject
+          </mat-error>
+        </mat-form-field>
+
+
+        <!-- <button mat-raised-button color="primary" (click)='setEditMode(false)' class="input-button">Save</button> -->
+    </ng-container>
+  </div>
+<!--
+  <ng-template #readonlyModeTmpl>
+    <mat-form-field  appearance="outline" floatLabel="never" [hideRequiredMarker]="true" (click)="setEditMode(true)">
+        <mat-label></mat-label>
+        <input *ngIf="subject === null" matInput class="subject-input" id="subject" name="subject-readonly" disabled value="---"/>
+        <input *ngIf="subject" matInput class="subject-input" id="subject" name="subject-readonly" formControlName="subject"/>
+    </mat-form-field>
+  </ng-template>
+</div> -->
+
