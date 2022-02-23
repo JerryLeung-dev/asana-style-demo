@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InputFieldComponent } from './input-field.component';
+import { StatusSelectComponent } from './status-select.component';
 
-describe('InputFieldComponent', () => {
-  let component: InputFieldComponent;
-  let fixture: ComponentFixture<InputFieldComponent>;
+describe('StatusSelectComponent', () => {
+  let component: StatusSelectComponent;
+  let fixture: ComponentFixture<StatusSelectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InputFieldComponent ]
+      declarations: [ StatusSelectComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InputFieldComponent);
+    fixture = TestBed.createComponent(StatusSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

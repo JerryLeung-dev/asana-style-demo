@@ -1,0 +1,21 @@
+<app-generic-select [items]="items" class="specific-select" required="required">
+  <span *appSelectedOptionTemplate="let selectedItem = selectedItem">
+    <div
+      class="priority-select-indicator"
+      [class.low-priority-selected]="selectedItem === 'Low'"
+      [class.medium-priority-selected]="selectedItem === 'Medium'"
+      [class.high-priority-selected]="selectedItem === 'High'"
+    ></div>
+    {{ selectedItem }}
+  </span>
+  <span *appOptionsTemplate="let item = item">
+    <div
+      class="priority-select-option"
+      [class.low-priority-option]="item.Text === 'Low'"
+      [class.medium-priority-option]="item.Text === 'Medium'"
+      [class.high-priority-option]="item.Text === 'High'"
+    ></div>
+    {{ item.Text }}
+  </span>
+  <span errorMessage>Priority is required</span>
+</app-generic-select>

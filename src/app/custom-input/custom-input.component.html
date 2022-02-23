@@ -1,0 +1,29 @@
+<mat-form-field
+  appearance="outline"
+  floatLabel="never"
+  [hideRequiredMarker]="true"
+  class="inputField"
+>
+  <textarea
+    *ngIf="textarea"
+    matInput
+    [formControl]="inputControl"
+    [class.boldText]="title"
+    [required]="required"
+    cdkTextareaAutosize
+    resizeToFitContent
+    #inputEle
+  ></textarea>
+  <input
+    *ngIf="!textarea"
+    matInput
+    [formControl]="inputControl"
+    [class.boldText]="title"
+    [required]="required"
+    cdkTextareaAutosize
+    #inputEle
+  />
+  <mat-error *ngIf="inputControl?.hasError('required')">
+    <span *ngIf="controlName">{{ controlName | titlecase }}</span> is required
+  </mat-error>
+</mat-form-field>

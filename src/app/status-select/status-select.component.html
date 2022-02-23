@@ -1,0 +1,25 @@
+<app-generic-select [items]="items" class="specific-select" required="required">
+  <span *appSelectedOptionTemplate="let selectedItem = selectedItem">
+    <span
+      class="status-tag status-tag--selected margin-left"
+      [class.open-option]="selectedItem === 'Open'"
+      [class.waiting-option]="selectedItem === 'Waiting'"
+      [class.cancelled-option]="selectedItem === 'Cancelled'"
+      [class.closed-option]="selectedItem === 'Closed'"
+      [class.completed-option]="selectedItem === 'Completed'"
+      >{{ selectedItem }}</span
+    >
+  </span>
+  <span *appOptionsTemplate="let item = item">
+    <span
+      class="status-tag"
+      [class.open-option]="item.Text === 'Open'"
+      [class.waiting-option]="item.Text === 'Waiting'"
+      [class.cancelled-option]="item.Text === 'Cancelled'"
+      [class.closed-option]="item.Text === 'Closed'"
+      [class.completed-option]="item.Text === 'Completed'"
+      >{{ item.Text }}</span
+    >
+  </span>
+  <span errorMessage>Status is required</span>
+</app-generic-select>

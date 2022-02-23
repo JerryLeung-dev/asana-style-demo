@@ -1,0 +1,30 @@
+@use "../../assets/custom-field-styles" as common;
+
+$minFieldWidth: 200px;
+$fieldWidth: 50%;
+
+:host ::ng-deep mat-form-field {
+  min-width: $minFieldWidth;
+  width: $fieldWidth;
+}
+
+:host
+  ::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline {
+  color: common.$borderIconGrey;
+  background-color: transparent;
+}
+
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: transparent;
+}
+
+:host .mat-input-element:disabled {
+  color: common.$textColor;
+}
+
+textarea.boldText.mat-input-element {
+  font-weight: 500;
+  font-size: 32px;
+}

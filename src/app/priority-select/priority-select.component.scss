@@ -1,0 +1,51 @@
+$highPriorityColor: #ed4345;
+$mediumPriorityColor: #6470ed;
+$lowPriorityColor: #fac14e;
+
+.specific-select {
+  width: 100%;
+}
+
+.priority-select-indicator {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: transparent;
+  margin-left: 7px;
+  margin-right: 9px;
+}
+
+.low-priority-selected {
+  background-color: $lowPriorityColor;
+}
+
+.medium-priority-selected {
+  background-color: $mediumPriorityColor;
+}
+
+.high-priority-selected {
+  background-color: $highPriorityColor;
+}
+
+.priority-select-option {
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.low-priority-option {
+  background-color: $lowPriorityColor;
+}
+
+.medium-priority-option {
+  background-color: $mediumPriorityColor;
+}
+
+.high-priority-option {
+  background-color: $highPriorityColor;
+}

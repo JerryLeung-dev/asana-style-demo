@@ -1,29 +1,51 @@
-
- <form class="form" [formGroup]="form">
-
-  <!-- <app-input-field [task]="task" (updateSubject)="updateTask($event)"></app-input-field> -->
-
-  <!-- <app-input-field-two [task]="task" (updateSubject)="updateTask($event)"></app-input-field-two> -->
-
-  <!-- <app-select-field [isDisabled]="false" [viewModel]="viewModel"></app-select-field> -->
-
-  <app-input-field-four formControlName="subject" [disabled]="canEdit"></app-input-field-four>
-  <!-- <app-select-field-two></app-select-field-two> -->
-
-  <!-- <app-input-field-three name="task" ngModel></app-input-field-three> -->
-
-
-    <!-- <app-select-field [isDisabled]="false" [viewModel]="viewModel"></app-select-field> -->
-
-    <app-select-field-two formControlName="priority" [items]="viewModel.priorities" controlName="priority" required></app-select-field-two>
-    <app-select-field-two formControlName="assignedTo" [items]="viewModel.users" controlName="assigned to" required></app-select-field-two>
-    <app-select-field-two formControlName="status" [items]="viewModel.status" controlName="status" required></app-select-field-two>
-
+<form class="form" [formGroup]="form" style="margin-left: 50px">
+  <app-custom-input-field
+    formControlName="subject"
+    controlName="subject"
+    textarea
+    required
+    title
+  ></app-custom-input-field>
+  <app-priority-select
+    [items]="viewModel.priorities"
+    formControlName="priority"
+    required
+  ></app-priority-select>
+  <app-generic-select
+    formControlName="assignedTo"
+    [items]="viewModel.users"
+    controlName="assigned to"
+    required
+  ></app-generic-select>
+  <app-status-select
+    [items]="viewModel.status"
+    formControlName="status"
+    required
+  ></app-status-select>
+  <app-date-picker-field
+    formControlName="dateOpened"
+    icon="alarm_add"
+    dateOnly
+  ></app-date-picker-field>
+  <app-date-picker-field
+    formControlName="dateDue"
+    icon="alarm_on"
+    [minDate]="minDate"
+    [isDisabled]="true"
+  ></app-date-picker-field>
+  (disabled)
+  <app-date-picker-field
+    formControlName="dateDue"
+    icon="alarm_on"
+    [minDate]="minDate"
+  ></app-date-picker-field>
+  <app-date-picker-field
+    formControlName="dateClosed"
+    icon="alarm_off"
+  ></app-date-picker-field>
+  <app-date-picker-field></app-date-picker-field>
 </form>
 
- <pre>{{ form.value | json }}</pre>
- <pre>{{ form.valid | json }}</pre>
- <p *ngIf="!form.valid">Subject is invalid!</p>
-
-
-
+<pre>{{ form.value | json }}</pre>
+<pre>{{ form.valid | json }}</pre>
+<p *ngIf="!form.valid">Subject is invalid!</p>

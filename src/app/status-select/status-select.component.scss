@@ -1,0 +1,49 @@
+$openStatusColor: #fff7ae;
+$waitingStatusColor: #94daff;
+$cancelledStatusColor: #ff7777;
+$closedStatusColor: #ffb319;
+$completedStatusColor: #b4fe98;
+
+.specific-select {
+  width: 100%;
+}
+
+.status-tag {
+  display: inline;
+  height: 100%;
+  clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
+
+  padding: 3px 15px 3px 5px;
+  font-size: 13px;
+  font-weight: 500;
+
+  &--selected {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    display: inline-block;
+  }
+}
+
+.open-option {
+  background-color: $openStatusColor;
+}
+
+.waiting-option {
+  background-color: $waitingStatusColor;
+}
+
+.cancelled-option {
+  background-color: $cancelledStatusColor;
+}
+
+.closed-option {
+  background-color: $closedStatusColor;
+}
+
+.completed-option {
+  background-color: $completedStatusColor;
+}
+
+.margin-left {
+  margin-left: 8px;
+}

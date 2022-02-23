@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InputFieldThreeComponent } from './input-field-three.component';
+import { GenericSelectComponent } from './generic-select.component';
 
-describe('InputFieldThreeComponent', () => {
-  let component: InputFieldThreeComponent;
-  let fixture: ComponentFixture<InputFieldThreeComponent>;
+describe('GenericSelectComponent', () => {
+  let component: GenericSelectComponent;
+  let fixture: ComponentFixture<GenericSelectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InputFieldThreeComponent ]
+      declarations: [ GenericSelectComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InputFieldThreeComponent);
+    fixture = TestBed.createComponent(GenericSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,55 @@
+$fieldHoverColour: #ebecf0;
+$borderIconGrey: #4d848b;
+$textColor: #153138;
+$minFieldWidth: 150px;
+$fieldWidth: 20%;
+
+:host ::ng-deep mat-form-field {
+  width: $fieldWidth;
+  min-width: $minFieldWidth;
+  line-height: 1.5;
+  color: $textColor;
+}
+
+:host ::ng-deep .mat-form-field-infix {
+  border-top: none;
+}
+
+:host
+  ::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-disabled
+  .mat-form-field-outline {
+  color: transparent;
+}
+
+:host
+  ::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-disabled:hover
+  .mat-form-field-outline {
+  color: $fieldHoverColour;
+  border-width: 10px;
+}
+
+:host
+  ::ng-deep
+  .mat-form-field-appearance-outline:hover
+  .mat-form-field-outline,
+:host
+  ::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline {
+  background-color: $fieldHoverColour;
+  border-radius: 5px;
+}
+
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: transparent;
+}
+
+:host
+  ::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-invalid
+  .mat-form-field-outline-thick,
+:host ::ng-deep .mat-form-field.mat-form-field-invalid {
+  color: transparent;
+}

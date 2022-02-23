@@ -1,0 +1,46 @@
+<mat-form-field appearance="outline" [hideRequiredMarker]="true">
+  <mat-select
+    disableRipple
+    disableOptionCentering
+    panelClass="selectPanel"
+    [formControl]="selectListControl"
+    [required]="required"
+    (selectionChange)="selectionChange.emit($event)"
+  >
+    <mat-select-trigger>
+      <ng-container
+        *ngIf="selectedOptionTemplate; else basicSelectedOptionTemplate"
+      >
+        <ng-container
+          *ngTemplateOutlet="
+            selectedOptionTemplate.templateRef;
+            context: { selectedItem: selectedItem }
+          "
+        ></ng-container>
+      </ng-container>
+      <ng-template #basicSelectedOptionTemplate>
+        <span class="margin-left">{{ selectedItem }}</span>
+      </ng-template>
+    </mat-select-trigger>
+    <mat-option *ngFor="let item of items" [value]="item.Value">
+      <ng-container *ngIf="optionsTemplate; else basicOptionTemplate">
+        <ng-container
+          *ngTemplateOutlet="
+            optionsTemplate.templateRef;
+            context: { item: item }
+          "
+        ></ng-container>
+      </ng-container>
+
+      <ng-template #basicOptionTemplate>
+        {{ item.Text }}
+      </ng-template>
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="selectListControl.hasError('required')">
+    <ng-container [ngTemplateOutlet]="errorMessageTemplate"></ng-container>
+  </mat-error>
+  <ng-template #errorMessageTemplate>
+    <ng-content select="[errorMessage]"></ng-content>
+  </ng-template>
+</mat-form-field>

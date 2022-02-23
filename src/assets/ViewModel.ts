@@ -8,14 +8,21 @@ export interface ViewModel {
     },
     Status: {
       Value: string | undefined;
+    },
+    DateOpened: {
+      Value: Date | null
     }
+    DateDue: {
+      Value: Date | null    }
+    DateClosed: {
+      Value: Date | null    }
   },
-  priorities : SelectItem[],
-  users: SelectItem[],
-  status: SelectItem[],
+  priorities : SelectListItem[],
+  users: SelectListItem[],
+  status: SelectListItem[],
 }
 
- export interface SelectItem {
+ export type SelectListItem = {
   Text: string, Value: number
  }
 

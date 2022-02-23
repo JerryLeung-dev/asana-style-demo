@@ -1,0 +1,56 @@
+<div class="control-wrapper">
+  <ng-container *ngIf="!isDisabled; else DisabledDateFieldTemplate">
+    <div class="date-picker-container">
+      <mat-icon
+        *ngIf="icon"
+        class="date-picker-icon"
+        [class.date-picker-icon--hover]="!isDisabled"
+        [owlDateTimeTrigger]="datePicker"
+        matToolTip
+        >{{ icon }}</mat-icon
+      >
+    </div>
+    <mat-form-field
+      appearance="outline"
+      floatLabel="never"
+      [hideRequiredMarker]="true"
+      [owlDateTimeTrigger]="datePicker"
+    >
+      <input
+        [owlDateTimeTrigger]="datePicker"
+        [owlDateTime]="datePicker"
+        matInput
+        [formControl]="dateFieldControl"
+        [required]="required"
+        [min]="minDate"
+        readonly
+      />
+      <owl-date-time #datePicker [pickerType]="dateMode"></owl-date-time>
+      <mat-error *ngIf="dateFieldControl.hasError('owlDateTimeMin')">
+        The date time can not be before the open date
+      </mat-error>
+      <mat-error *ngIf="dateFieldControl.hasError('required')">
+        The field is required
+      </mat-error>
+    </mat-form-field>
+  </ng-container>
+</div>
+
+<ng-template #DisabledDateFieldTemplate>
+  <div class="date-picker-container">
+    <mat-icon
+      class="date-picker-icon"
+      [class.date-picker-icon--hover]="!isDisabled"
+      >{{ icon }}</mat-icon
+    >
+  </div>
+  <mat-form-field
+    appearance="outline"
+    floatLabel="never"
+    [hideRequiredMarker]="true"
+    readonly
+  >
+    <mat-label></mat-label>
+    <input matInput [formControl]="dateFieldControl" />
+  </mat-form-field>
+</ng-template>
