@@ -12,41 +12,82 @@ $fieldWidth: 100%;
   display: flex;
 }
 
-.date-picker-container {
+.icon-container {
   display: flex;
   align-items: center;
   margin-right: 12px;
   color: common.$borderIconGrey;
+
+  &--delete {
+    margin-right: 0;
+    margin-left: 12px;
+  }
 }
 
-.date-picker-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  z-index: 100;
+// .icon {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   position: relative;
+//   z-index: 100;
 
-  cursor: pointer;
-  transform: translateY(-11px);
-}
+//   cursor: pointer;
+//   transform: translateY(-11px);
 
-.date-picker-icon--hover {
-  &::after {
-    display: block;
-    position: absolute;
-    z-index: -1;
+//   &--delete {
+//     font-size: 15px;
+//     height: 15px;
+//     width: 15px;
+//     color: grey;
+//     transform: translateY(-10px);
+//   }
+// }
 
-    width: 40px;
-    height: 40px;
-    border-radius: 100px;
-    content: "";
+// .icon--hover {
+//   &::after {
+//     display: block;
+//     position: absolute;
+//     z-index: -1;
 
-    background-color: #eee;
-    opacity: 0;
-    transition: opacity 0.5s;
+//     width: 40px;
+//     height: 40px;
+//     border-radius: 100px;
+//     content: "";
+
+//     background-color: #eee;
+//     opacity: 0;
+//     transition: opacity 0.5s;
+//   }
+
+//   &:hover::after {
+//     opacity: 1;
+//   }
+
+//   &--delete {
+//     &::after {
+//       width: 25px;
+//       height: 25px;
+//     }
+//   }
+// }
+
+.button {
+  margin-right: 4px;
+  line-height: unset;
+  transform: translateY(5px);
+
+  &__small {
+    margin-right: 0px;
+    margin-left: 4px;
+    width: 30px;
+    height: 30px;
+    transform: translateY(10px);
   }
 
-  &:hover::after {
-    opacity: 1;
+  &__icon {
+    color: common.$borderIconGrey;
+    &--small {
+      transform: scale(0.65);
+    }
   }
 }

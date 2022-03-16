@@ -18,7 +18,6 @@ import { GenericSelectComponent } from '../generic-select/generic-select.compone
 })
 export class StatusSelectComponent implements ControlValueAccessor {
   @Input() items: SelectListItem[];
-  @Input() disabled = false;
 
   @Input()
   get required(): boolean {

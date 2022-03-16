@@ -4,24 +4,17 @@ import {
   ElementRef,
   forwardRef,
   Input,
-  OnInit,
   Provider,
   ViewChild,
 } from '@angular/core';
 import {
   AbstractControl,
-  ControlContainer,
   ControlValueAccessor,
-  FormBuilder,
   FormControl,
-  FormGroup,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   Validator,
-  Validators,
 } from '@angular/forms';
-import { MatInput } from '@angular/material/input';
-import { Task } from 'src/assets/Task';
 
 const INPUT_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -43,7 +36,6 @@ const INPUT_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   ],
 })
 export class CustomInputComponent implements ControlValueAccessor, Validator {
-  @Input() disabled = false;
   @Input() controlName: string = 'The field';
 
   @Input()
@@ -64,16 +56,17 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
 
   @Input()
   get title(): boolean {
-    return this._required;
+    return this._title;
   }
   set title(value: any) {
     this._title = coerceBooleanProperty(value);
   }
 
-  @ViewChild('inputEle') inputEle: ElementRef;
+  @ViewChild('inputElement') inputElement: ElementRef;
 
   isEditing = true;
   inputControl = new FormControl('');
+  disabled = false;
 
   private onTouched: Function;
   private onChanged: Function;
@@ -99,27 +92,29 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
     this.onTouched = fn;
   }
 
-  setEditMode(mode: boolean) {
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+  }
+
+  setEditMode(mode: boolean, event?: MouseEvent) {
     if (mode === true) {
-      if (this.disabled === true) {
-        return;
-      } else {
-        this.inputControl.enable();
-        this.autoFocusElement();
-      }
+      this.inputControl.enable();
+      this.autoFocusElement();
     }
 
     if (mode === false) {
       const hasError = this.checkErrorsAfterEditing();
       if (hasError) {
+        this.autoFocusElement();
         return;
       }
+
       this.inputControl.disable();
     }
   }
 
   public autoFocusElement() {
-    this.inputEle.nativeElement.focus();
+    this.inputElement.nativeElement.focus();
   }
 
   validate(_: AbstractControl) {
@@ -127,6 +122,6 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
   }
 
   checkErrorsAfterEditing() {
-    return this.inputControl?.errors ? true : false;
+    return this.inputControl.errors ? true : false;
   }
 }

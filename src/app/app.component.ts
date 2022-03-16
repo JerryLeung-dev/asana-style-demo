@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  NgForm,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Task } from 'src/assets/Task';
 import { ViewModel } from 'src/assets/ViewModel';
-import { AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -90,12 +84,12 @@ export class AppComponent implements OnInit {
     private readonly changeDetectorRef: ChangeDetectorRef
   ) {
     this.form = fb.group({
-      subject: 'New subject',
-      priority: this.viewModel.action.Priority.Value,
+      subject: { value: 'New Subject', disabled: false },
+      priority: { value: this.viewModel.action.Priority.Value, disabled: true },
       assignedTo: this.viewModel.action.AssignedTo.Value,
-      status: this.viewModel.action.Status.Value,
+      status: { value: this.viewModel.action.Status.Value, disabled: true },
       dateOpened: this.viewModel.action.DateOpened.Value,
-      dateDue: this.viewModel.action.DateDue.Value,
+      dateDue: { value: this.viewModel.action.DateDue.Value, disabled: false },
       dateClosed: this.viewModel.action.DateClosed.Value,
     });
   }
@@ -107,6 +101,9 @@ export class AppComponent implements OnInit {
   }
 
   get minDate() {
+    return this.form.get('dateOpened')?.value;
+  }
+  get maxDate() {
     return this.form.get('dateOpened')?.value;
   }
 }

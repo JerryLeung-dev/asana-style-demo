@@ -1,4 +1,8 @@
-<app-generic-select [items]="items" class="specific-select" required="required">
+<app-generic-select
+  [items]="items"
+  class="specific-select"
+  [required]="required"
+>
   <span *appSelectedOptionTemplate="let selectedItem = selectedItem">
     <span
       class="status-tag status-tag--selected margin-left"

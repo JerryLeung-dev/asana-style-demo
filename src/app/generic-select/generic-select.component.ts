@@ -34,7 +34,6 @@ import { SelectedOptionTemplateDirective } from '../generic-select-templates/sel
 })
 export class GenericSelectComponent implements ControlValueAccessor {
   @Input() items: SelectListItem[] | undefined;
-  @Input() disabled: boolean = false;
 
   @Input()
   get required(): boolean {
@@ -49,6 +48,7 @@ export class GenericSelectComponent implements ControlValueAccessor {
   private _required!: boolean;
 
   selectListControl = new FormControl('');
+  disabled: boolean = false;
 
   @ContentChild(OptionsTemplateDirective) optionsTemplate:
     | OptionsTemplateDirective

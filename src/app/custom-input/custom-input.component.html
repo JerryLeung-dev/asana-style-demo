@@ -1,29 +1,62 @@
-<mat-form-field
-  appearance="outline"
-  floatLabel="never"
-  [hideRequiredMarker]="true"
-  class="inputField"
->
-  <textarea
-    *ngIf="textarea"
-    matInput
-    [formControl]="inputControl"
-    [class.boldText]="title"
-    [required]="required"
-    cdkTextareaAutosize
-    resizeToFitContent
-    #inputEle
-  ></textarea>
-  <input
-    *ngIf="!textarea"
-    matInput
-    [formControl]="inputControl"
-    [class.boldText]="title"
-    [required]="required"
-    cdkTextareaAutosize
-    #inputEle
-  />
-  <mat-error *ngIf="inputControl?.hasError('required')">
-    <span *ngIf="controlName">{{ controlName | titlecase }}</span> is required
-  </mat-error>
-</mat-form-field>
+<ng-container *ngIf="!disabled; else DisableInputTemplate">
+  <mat-form-field
+    appearance="outline"
+    floatLabel="never"
+    [hideRequiredMarker]="true"
+    (focusout)="setEditMode(false)"
+    (click)="setEditMode(true, $event)"
+    class="not-disable"
+  >
+    <textarea
+      *ngIf="textarea"
+      matInput
+      [formControl]="inputControl"
+      [class.boldText]="title"
+      [required]="required"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="1"
+      cdkAutosizeMaxRows="3"
+      resizeToFitContent
+      #inputElement
+    ></textarea>
+    <input
+      *ngIf="!textarea"
+      matInput
+      [formControl]="inputControl"
+      [class.boldText]="title"
+      [required]="required"
+      #inputElement
+    />
+    <mat-error *ngIf="inputControl?.hasError('required')">
+      <span *ngIf="controlName">{{ controlName | titlecase }}</span> is required
+    </mat-error>
+  </mat-form-field>
+</ng-container>
+
+<ng-template #DisableInputTemplate>
+  <mat-form-field
+    appearance="outline"
+    floatLabel="never"
+    [hideRequiredMarker]="true"
+  >
+    <textarea
+      *ngIf="textarea"
+      matInput
+      [formControl]="inputControl"
+      [class.boldText]="title"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="1"
+      cdkAutosizeMaxRows="3"
+      resizeToFitContent
+      #inputElement
+      readonly
+    ></textarea>
+    <input
+      *ngIf="!textarea"
+      matInput
+      [formControl]="inputControl"
+      [class.boldText]="title"
+      #inputElement
+    />
+  </mat-form-field>
+</ng-template>

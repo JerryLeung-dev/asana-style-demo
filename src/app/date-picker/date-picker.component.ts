@@ -1,24 +1,12 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import {
-  Component,
-  ElementRef,
-  forwardRef,
-  Input,
-  OnChanges,
-  OnInit,
-  Provider,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, forwardRef, Input, OnInit, Provider } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
-  FormBuilder,
   FormControl,
-  FormGroup,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   Validator,
-  Validators,
 } from '@angular/forms';
 
 const DATE_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -43,9 +31,9 @@ const DATE_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
 export class DatePickerComponent
   implements OnInit, ControlValueAccessor, Validator
 {
-  @Input() isDisabled = false;
   @Input() icon: string;
   @Input() minDate: Date;
+  @Input() maxDate: Date;
 
   @Input()
   get required(): boolean {
@@ -65,6 +53,8 @@ export class DatePickerComponent
 
   isEditing = true;
   dateFieldControl = new FormControl('');
+  isReadonly = true;
+  disabled = false;
 
   private onTouched: Function;
   private onChanged: Function;
@@ -74,7 +64,7 @@ export class DatePickerComponent
   constructor() {}
 
   ngOnInit() {
-    if (this.isDisabled) {
+    if (this.disabled) {
       this.dateFieldControl.disable();
     }
   }
@@ -92,7 +82,7 @@ export class DatePickerComponent
   }
 
   setDisabledState(isDisabled: boolean) {
-    this.isDisabled = isDisabled;
+    this.disabled = isDisabled;
   }
 
   validate(ctrl: AbstractControl) {
@@ -105,5 +95,11 @@ export class DatePickerComponent
     } else {
       return 'both';
     }
+  }
+
+  handleDeleteInput() {
+    this.isReadonly = false;
+    this.dateFieldControl.setValue('');
+    this.isReadonly = true;
   }
 }

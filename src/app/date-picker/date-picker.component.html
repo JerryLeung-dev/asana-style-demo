@@ -1,15 +1,24 @@
 <div class="control-wrapper">
-  <ng-container *ngIf="!isDisabled; else DisabledDateFieldTemplate">
-    <div class="date-picker-container">
+  <ng-container *ngIf="!disabled; else DisabledDateFieldTemplate">
+    <button
+      mat-icon-button
+      *ngIf="icon"
+      [owlDateTimeTrigger]="datePicker"
+      class="button"
+      matToolTip="Date Picker Icon"
+    >
+      <mat-icon class="button__icon">{{ icon }}</mat-icon>
+    </button>
+    <!-- <div class="icon-container">
       <mat-icon
         *ngIf="icon"
-        class="date-picker-icon"
-        [class.date-picker-icon--hover]="!isDisabled"
+        class="icon"
+        [class.icon--hover]="!isDisabled"
         [owlDateTimeTrigger]="datePicker"
-        matToolTip
+        matToolTip="Date Picker Icon"
         >{{ icon }}</mat-icon
       >
-    </div>
+    </div> -->
     <mat-form-field
       appearance="outline"
       floatLabel="never"
@@ -23,34 +32,65 @@
         [formControl]="dateFieldControl"
         [required]="required"
         [min]="minDate"
-        readonly
+        [max]="maxDate"
+        readonly="isReadonly"
       />
       <owl-date-time #datePicker [pickerType]="dateMode"></owl-date-time>
       <mat-error *ngIf="dateFieldControl.hasError('owlDateTimeMin')">
-        The date time can not be before the open date
+        <ng-container
+          [ngTemplateOutlet]="minDateErrorMessageTemplate"
+        ></ng-container>
       </mat-error>
       <mat-error *ngIf="dateFieldControl.hasError('required')">
-        The field is required
+        <ng-container
+          [ngTemplateOutlet]="requiredErrorMessageTemplate"
+        ></ng-container>
       </mat-error>
+      <ng-template #minDateErrorMessageTemplate>
+        <ng-content select="[minDateErrorMessage]"></ng-content>
+      </ng-template>
+      <ng-template #requiredErrorMessageTemplate>
+        <ng-content select="[requiredErrorMessage]"></ng-content>
+      </ng-template>
     </mat-form-field>
+    <button
+      *ngIf="dateFieldControl.value"
+      md-button
+      mat-icon-button
+      class="button button__small"
+      matToolTip="Delete input"
+      (click)="handleDeleteInput()"
+    >
+      <mat-icon class="button__icon button__icon--small">close</mat-icon>
+    </button>
+    <!-- <div class="icon-container icon-container--delete">
+      <mat-icon
+        *ngIf="dateFieldControl.value"
+        class="icon icon--delete"
+        [ngClass]="!isDisabled ? 'icon--hover icon--hover--delete' : ''"
+        (click)="handleDeleteInput()"
+        matToolTip="Delete input"
+        >close</mat-icon
+      >
+    </div> -->
   </ng-container>
 </div>
 
 <ng-template #DisabledDateFieldTemplate>
-  <div class="date-picker-container">
-    <mat-icon
-      class="date-picker-icon"
-      [class.date-picker-icon--hover]="!isDisabled"
-      >{{ icon }}</mat-icon
-    >
-  </div>
+  <button
+    mat-icon-button
+    *ngIf="icon"
+    class="button"
+    matToolTip="Date Picker Icon"
+    [disableRipple]="true"
+  >
+    <mat-icon class="button__icon">{{ icon }}</mat-icon>
+  </button>
   <mat-form-field
     appearance="outline"
     floatLabel="never"
     [hideRequiredMarker]="true"
-    readonly
   >
-    <mat-label></mat-label>
-    <input matInput [formControl]="dateFieldControl" />
+    <input matInput [formControl]="dateFieldControl" readonly />
   </mat-form-field>
 </ng-template>

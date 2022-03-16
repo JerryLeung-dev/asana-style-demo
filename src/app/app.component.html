@@ -2,21 +2,20 @@
   <app-custom-input-field
     formControlName="subject"
     controlName="subject"
-    textarea
     required
+    textarea
     title
   ></app-custom-input-field>
   <app-priority-select
     [items]="viewModel.priorities"
     formControlName="priority"
-    required
   ></app-priority-select>
-  <app-generic-select
+  <!-- <app-generic-select
     formControlName="assignedTo"
     [items]="viewModel.users"
     controlName="assigned to"
     required
-  ></app-generic-select>
+  ></app-generic-select> -->
   <app-status-select
     [items]="viewModel.status"
     formControlName="status"
@@ -26,24 +25,33 @@
     formControlName="dateOpened"
     icon="alarm_add"
     dateOnly
+    required
+  >
+    <span requiredErrorMessage>Date open is required</span>
+  </app-date-picker-field>
+  <app-date-picker-field
+    formControlName="dateDue"
+    icon="alarm_on"
+    [minDate]="minDate"
   ></app-date-picker-field>
   <app-date-picker-field
     formControlName="dateDue"
     icon="alarm_on"
     [minDate]="minDate"
-    [isDisabled]="true"
-  ></app-date-picker-field>
-  (disabled)
-  <app-date-picker-field
-    formControlName="dateDue"
-    icon="alarm_on"
-    [minDate]="minDate"
+    [maxDate]="maxDate"
   ></app-date-picker-field>
   <app-date-picker-field
     formControlName="dateClosed"
     icon="alarm_off"
   ></app-date-picker-field>
   <app-date-picker-field></app-date-picker-field>
+
+  <app-basic-select
+    required
+    formControlName="assignedTo"
+    controlName="Assigned to"
+    [items]="viewModel.users"
+  ></app-basic-select>
 </form>
 
 <pre>{{ form.value | json }}</pre>

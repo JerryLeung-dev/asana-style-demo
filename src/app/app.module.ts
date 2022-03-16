@@ -18,6 +18,7 @@ import { PrioritySelectComponent } from './priority-select/priority-select.compo
 import { StatusSelectComponent } from './status-select/status-select.component';
 import { CustomInputComponent } from './custom-input/custom-input.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
+import { BasicSelectComponent } from './basic-select/basic-select.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     SelectedOptionTemplateDirective,
     PrioritySelectComponent,
     StatusSelectComponent,
+    BasicSelectComponent,
   ],
   imports: [
     BrowserModule,
