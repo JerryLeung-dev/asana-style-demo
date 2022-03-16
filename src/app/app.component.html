@@ -9,6 +9,7 @@
   <app-priority-select
     [items]="viewModel.priorities"
     formControlName="priority"
+    required
   ></app-priority-select>
   <!-- <app-generic-select
     formControlName="assignedTo"
@@ -33,7 +34,9 @@
     formControlName="dateDue"
     icon="alarm_on"
     [minDate]="minDate"
-  ></app-date-picker-field>
+  >
+    <span minDateErrorMessage>Due date can not be before Open date</span>
+  </app-date-picker-field>
   <app-date-picker-field
     formControlName="dateDue"
     icon="alarm_on"

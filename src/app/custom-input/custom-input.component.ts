@@ -42,7 +42,7 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
   get textarea(): boolean {
     return this._textarea;
   }
-  set textarea(value: any) {
+  set textarea(value: boolean | string) {
     this._textarea = coerceBooleanProperty(value);
   }
 
@@ -50,7 +50,7 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
   get required(): boolean {
     return this._required;
   }
-  set required(value: any) {
+  set required(value: boolean | string) {
     this._required = coerceBooleanProperty(value);
   }
 
@@ -58,7 +58,7 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
   get title(): boolean {
     return this._title;
   }
-  set title(value: any) {
+  set title(value: boolean | string) {
     this._title = coerceBooleanProperty(value);
   }
 

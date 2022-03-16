@@ -1,17 +1,35 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  Component,
+  forwardRef,
+  Input,
+  OnInit,
+  Provider,
+  ViewChild,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { SelectListItem } from 'src/assets/ViewModel';
 import { GenericSelectComponent } from '../generic-select/generic-select.component';
+
+const SELECT_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => StatusSelectComponent),
+  multi: true,
+};
 
 @Component({
   selector: 'app-status-select',
   templateUrl: './status-select.component.html',
   styleUrls: ['./status-select.component.scss'],
   providers: [
+    SELECT_FIELD_CONTROL_VALUE_ACCESSOR,
     {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => StatusSelectComponent),
+      provide: NG_VALIDATORS,
+      useExisting: StatusSelectComponent,
       multi: true,
     },
   ],
@@ -23,7 +41,7 @@ export class StatusSelectComponent implements ControlValueAccessor {
   get required(): boolean {
     return this._required;
   }
-  set required(value: any) {
+  set required(value: boolean | string) {
     this._required = coerceBooleanProperty(value);
   }
 

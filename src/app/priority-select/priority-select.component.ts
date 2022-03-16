@@ -5,20 +5,32 @@ import {
   forwardRef,
   Input,
   OnInit,
+  Provider,
   ViewChild,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { SelectListItem } from '../../assets/ViewModel';
 import { GenericSelectComponent } from '../generic-select/generic-select.component';
+
+const SELECT_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => PrioritySelectComponent),
+  multi: true,
+};
 
 @Component({
   selector: 'app-priority-select',
   templateUrl: './priority-select.component.html',
   styleUrls: ['./priority-select.component.scss'],
   providers: [
+    SELECT_FIELD_CONTROL_VALUE_ACCESSOR,
     {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PrioritySelectComponent),
+      provide: NG_VALIDATORS,
+      useExisting: PrioritySelectComponent,
       multi: true,
     },
   ],
@@ -30,8 +42,8 @@ export class PrioritySelectComponent implements ControlValueAccessor {
   get required(): boolean {
     return this._required;
   }
-  set required(value: any) {
-    this._required = value;
+  set required(value: boolean | string) {
+    this._required = coerceBooleanProperty(value);
   }
 
   @ViewChild(GenericSelectComponent, { static: true })

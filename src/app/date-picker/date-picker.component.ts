@@ -39,7 +39,7 @@ export class DatePickerComponent
   get required(): boolean {
     return this._required;
   }
-  set required(value: any) {
+  set required(value: boolean | string) {
     this._required = coerceBooleanProperty(value);
   }
 
@@ -47,7 +47,7 @@ export class DatePickerComponent
   get dateOnly(): boolean {
     return this._dateOnly;
   }
-  set dateOnly(value: any) {
+  set dateOnly(value: boolean | string) {
     this._dateOnly = coerceBooleanProperty(value);
   }
 

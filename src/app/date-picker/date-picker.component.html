@@ -9,16 +9,6 @@
     >
       <mat-icon class="button__icon">{{ icon }}</mat-icon>
     </button>
-    <!-- <div class="icon-container">
-      <mat-icon
-        *ngIf="icon"
-        class="icon"
-        [class.icon--hover]="!isDisabled"
-        [owlDateTimeTrigger]="datePicker"
-        matToolTip="Date Picker Icon"
-        >{{ icon }}</mat-icon
-      >
-    </div> -->
     <mat-form-field
       appearance="outline"
       floatLabel="never"
@@ -63,16 +53,6 @@
     >
       <mat-icon class="button__icon button__icon--small">close</mat-icon>
     </button>
-    <!-- <div class="icon-container icon-container--delete">
-      <mat-icon
-        *ngIf="dateFieldControl.value"
-        class="icon icon--delete"
-        [ngClass]="!isDisabled ? 'icon--hover icon--hover--delete' : ''"
-        (click)="handleDeleteInput()"
-        matToolTip="Delete input"
-        >close</mat-icon
-      >
-    </div> -->
   </ng-container>
 </div>
 

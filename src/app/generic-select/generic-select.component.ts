@@ -1,12 +1,11 @@
 import {
-  AfterContentChecked,
-  AfterViewChecked,
   Component,
   ContentChild,
   EventEmitter,
   forwardRef,
   Input,
   Output,
+  Provider,
 } from '@angular/core';
 import { OptionsTemplateDirective as OptionsTemplateDirective } from '../generic-select-templates/options-template/options-template.directive';
 import { SelectListItem } from '../../assets/ViewModel';
@@ -14,20 +13,27 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   ControlValueAccessor,
   FormControl,
+  NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
-  Validator,
 } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { SelectedOptionTemplateDirective } from '../generic-select-templates/selected-option-template/selected-option-template.directive';
+
+const SELECT_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => GenericSelectComponent),
+  multi: true,
+};
 
 @Component({
   selector: 'app-generic-select',
   templateUrl: './generic-select.component.html',
   styleUrls: ['./generic-select.component.scss'],
   providers: [
+    SELECT_FIELD_CONTROL_VALUE_ACCESSOR,
     {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => GenericSelectComponent),
+      provide: NG_VALIDATORS,
+      useExisting: GenericSelectComponent,
       multi: true,
     },
   ],
@@ -39,7 +45,7 @@ export class GenericSelectComponent implements ControlValueAccessor {
   get required(): boolean {
     return this._required;
   }
-  set required(value: any) {
+  set required(value: boolean | string) {
     this._required = coerceBooleanProperty(value);
   }
 
