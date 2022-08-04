@@ -11,12 +11,6 @@
     formControlName="priority"
     required
   ></app-priority-select>
-  <!-- <app-generic-select
-    formControlName="assignedTo"
-    [items]="viewModel.users"
-    controlName="assigned to"
-    required
-  ></app-generic-select> -->
   <app-status-select
     [items]="viewModel.status"
     formControlName="status"
@@ -55,6 +49,7 @@
     controlName="Assigned to"
     [items]="viewModel.users"
   ></app-basic-select>
+  <button (click)="submit()">Submit</button>
 </form>
 
 <pre>{{ form.value | json }}</pre>

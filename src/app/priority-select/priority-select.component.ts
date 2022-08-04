@@ -1,4 +1,4 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   AfterViewInit,
   Component,
@@ -26,24 +26,21 @@ const SELECT_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   selector: 'app-priority-select',
   templateUrl: './priority-select.component.html',
   styleUrls: ['./priority-select.component.scss'],
-  providers: [
-    SELECT_FIELD_CONTROL_VALUE_ACCESSOR,
-    {
-      provide: NG_VALIDATORS,
-      useExisting: PrioritySelectComponent,
-      multi: true,
-    },
-  ],
+  providers: [SELECT_FIELD_CONTROL_VALUE_ACCESSOR],
 })
-export class PrioritySelectComponent implements ControlValueAccessor {
+export class PrioritySelectComponent implements ControlValueAccessor, OnInit {
   @Input() items: SelectListItem[];
 
   @Input()
   get required(): boolean {
     return this._required;
   }
-  set required(value: boolean | string) {
+  set required(value: BooleanInput) {
     this._required = coerceBooleanProperty(value);
+  }
+
+  ngOnInit(): void {
+    console.log(this.items);
   }
 
   @ViewChild(GenericSelectComponent, { static: true })

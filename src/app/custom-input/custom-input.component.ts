@@ -1,5 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   forwardRef,
@@ -15,6 +16,9 @@ import {
   NG_VALUE_ACCESSOR,
   Validator,
 } from '@angular/forms';
+import { filter } from 'rxjs';
+
+import { extractTouchedChanges } from 'src/assets/extractTouchedChanges';
 
 const INPUT_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -35,7 +39,9 @@ const INPUT_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
     },
   ],
 })
-export class CustomInputComponent implements ControlValueAccessor, Validator {
+export class CustomInputComponent
+  implements ControlValueAccessor, Validator, AfterViewInit
+{
   @Input() controlName: string = 'The field';
 
   @Input()
@@ -68,8 +74,7 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
   inputControl = new FormControl('');
   disabled = false;
 
-  private onTouched: Function;
-  private onChanged: Function;
+  private _onTouched: Function;
   private _required: boolean;
   private _title: boolean;
   private _textarea: boolean;
@@ -84,19 +89,25 @@ export class CustomInputComponent implements ControlValueAccessor, Validator {
     }
   }
 
+  ngAfterViewInit() {
+    extractTouchedChanges(this.inputControl)
+      .pipe(filter((touched) => touched))
+      .subscribe(() => this._onTouched());
+  }
+
   registerOnChange(fn: (value: string) => void) {
     this.inputControl.valueChanges.subscribe(fn);
   }
 
   registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
+    this._onTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean) {
     this.disabled = isDisabled;
   }
 
-  setEditMode(mode: boolean, event?: MouseEvent) {
+  setEditMode(mode: boolean) {
     if (mode === true) {
       this.inputControl.enable();
       this.autoFocusElement();

@@ -85,9 +85,12 @@ export class AppComponent implements OnInit {
   ) {
     this.form = fb.group({
       subject: { value: 'New Subject', disabled: false },
-      priority: { value: this.viewModel.action.Priority.Value, disabled: true },
+      priority: {
+        value: this.viewModel.action.Priority.Value,
+        disabled: false,
+      },
       assignedTo: this.viewModel.action.AssignedTo.Value,
-      status: { value: this.viewModel.action.Status.Value, disabled: true },
+      status: { value: this.viewModel.action.Status.Value, disabled: false },
       dateOpened: this.viewModel.action.DateOpened.Value,
       dateDue: { value: this.viewModel.action.DateDue.Value, disabled: false },
       dateClosed: this.viewModel.action.DateClosed.Value,
@@ -105,5 +108,16 @@ export class AppComponent implements OnInit {
   }
   get maxDate() {
     return this.form.get('dateOpened')?.value;
+  }
+
+  submit() {
+    this.form.markAllAsTouched();
+
+    if (!this.form.valid) {
+      alert('Please check the error message');
+      return;
+    }
+
+    alert('submiited');
   }
 }

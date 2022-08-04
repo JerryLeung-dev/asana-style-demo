@@ -19,6 +19,9 @@ import { StatusSelectComponent } from './status-select/status-select.component';
 import { CustomInputComponent } from './custom-input/custom-input.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { BasicSelectComponent } from './basic-select/basic-select.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import 'hammerjs';
+import { TaskboardSelectComponent } from './taskboard-select/taskboard-select.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,7 @@ import { BasicSelectComponent } from './basic-select/basic-select.component';
     PrioritySelectComponent,
     StatusSelectComponent,
     BasicSelectComponent,
+    TaskboardSelectComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +49,8 @@ import { BasicSelectComponent } from './basic-select/basic-select.component';
     MatIconModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    MatTooltipModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

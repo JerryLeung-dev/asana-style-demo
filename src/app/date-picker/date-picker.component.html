@@ -3,15 +3,14 @@
     <button
       mat-icon-button
       *ngIf="icon"
-      [owlDateTimeTrigger]="datePicker"
+      [matTooltip]="matTooltip"
       class="button"
-      matToolTip="Date Picker Icon"
+      [owlDateTimeTrigger]="datePicker"
     >
       <mat-icon class="button__icon">{{ icon }}</mat-icon>
     </button>
     <mat-form-field
       appearance="outline"
-      floatLabel="never"
       [hideRequiredMarker]="true"
       [owlDateTimeTrigger]="datePicker"
     >
@@ -23,7 +22,7 @@
         [required]="required"
         [min]="minDate"
         [max]="maxDate"
-        readonly="isReadonly"
+        readonly="readonly"
       />
       <owl-date-time #datePicker [pickerType]="dateMode"></owl-date-time>
       <mat-error *ngIf="dateFieldControl.hasError('owlDateTimeMin')">
@@ -45,10 +44,9 @@
     </mat-form-field>
     <button
       *ngIf="dateFieldControl.value"
-      md-button
       mat-icon-button
       class="button button__small"
-      matToolTip="Delete input"
+      matTooltip="Delete input"
       (click)="handleDeleteInput()"
     >
       <mat-icon class="button__icon button__icon--small">close</mat-icon>
@@ -61,16 +59,12 @@
     mat-icon-button
     *ngIf="icon"
     class="button"
-    matToolTip="Date Picker Icon"
+    matTooltip="matTooltip"
     [disableRipple]="true"
   >
     <mat-icon class="button__icon">{{ icon }}</mat-icon>
   </button>
-  <mat-form-field
-    appearance="outline"
-    floatLabel="never"
-    [hideRequiredMarker]="true"
-  >
+  <mat-form-field appearance="outline" [hideRequiredMarker]="true">
     <input matInput [formControl]="dateFieldControl" readonly />
   </mat-form-field>
 </ng-template>

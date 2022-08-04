@@ -1,10 +1,9 @@
 <ng-container *ngIf="!disabled; else DisableInputTemplate">
   <mat-form-field
     appearance="outline"
-    floatLabel="never"
     [hideRequiredMarker]="true"
     (focusout)="setEditMode(false)"
-    (click)="setEditMode(true, $event)"
+    (click)="setEditMode(true)"
   >
     <textarea
       *ngIf="textarea"
@@ -16,6 +15,7 @@
       cdkAutosizeMinRows="1"
       cdkAutosizeMaxRows="3"
       resizeToFitContent
+      placeholder="New subject"
       #inputElement
     ></textarea>
     <input
@@ -24,6 +24,7 @@
       [formControl]="inputControl"
       [class.boldText]="title"
       [required]="required"
+      placeholder="New subject"
       #inputElement
     />
     <mat-error *ngIf="inputControl?.hasError('required')">
@@ -33,11 +34,7 @@
 </ng-container>
 
 <ng-template #DisableInputTemplate>
-  <mat-form-field
-    appearance="outline"
-    floatLabel="never"
-    [hideRequiredMarker]="true"
-  >
+  <mat-form-field appearance="outline" [hideRequiredMarker]="true">
     <textarea
       *ngIf="textarea"
       matInput
@@ -55,6 +52,7 @@
       matInput
       [formControl]="inputControl"
       [class.boldText]="title"
+      readonly
       #inputElement
     />
   </mat-form-field>

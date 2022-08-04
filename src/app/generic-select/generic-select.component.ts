@@ -1,3 +1,4 @@
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   Component,
   ContentChild,
@@ -7,16 +8,19 @@ import {
   Output,
   Provider,
 } from '@angular/core';
-import { OptionsTemplateDirective as OptionsTemplateDirective } from '../generic-select-templates/options-template/options-template.directive';
-import { SelectListItem } from '../../assets/ViewModel';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
+  AbstractControl,
   ControlValueAccessor,
   FormControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
+  Validator,
 } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
+import { filter } from 'rxjs/operators';
+import { extractTouchedChanges } from 'src/assets/extractTouchedChanges';
+import { SelectListItem } from 'src/assets/ViewModel';
+import { OptionsTemplateDirective } from '../generic-select-templates/options-template/options-template.directive';
 import { SelectedOptionTemplateDirective } from '../generic-select-templates/selected-option-template/selected-option-template.directive';
 
 const SELECT_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -38,14 +42,14 @@ const SELECT_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
     },
   ],
 })
-export class GenericSelectComponent implements ControlValueAccessor {
+export class GenericSelectComponent implements ControlValueAccessor, Validator {
   @Input() items: SelectListItem[] | undefined;
 
   @Input()
   get required(): boolean {
     return this._required;
   }
-  set required(value: boolean | string) {
+  set required(value: BooleanInput) {
     this._required = coerceBooleanProperty(value);
   }
 
@@ -54,7 +58,8 @@ export class GenericSelectComponent implements ControlValueAccessor {
   private _required!: boolean;
 
   selectListControl = new FormControl('');
-  disabled: boolean = false;
+  disabled = false;
+  private _onTouched: () => void = () => {};
 
   @ContentChild(OptionsTemplateDirective) optionsTemplate:
     | OptionsTemplateDirective
@@ -75,6 +80,12 @@ export class GenericSelectComponent implements ControlValueAccessor {
     }
   }
 
+  ngAfterViewInit() {
+    extractTouchedChanges(this.selectListControl)
+      .pipe(filter((touched) => touched))
+      .subscribe(() => this._onTouched());
+  }
+
   writeValue(value: string): void {
     if (value) {
       this.selectListControl.setValue(value, { emitEvent: false });
@@ -88,12 +99,14 @@ export class GenericSelectComponent implements ControlValueAccessor {
   }
 
   registerOnTouched(fn: () => void) {
-    this.onTouched = fn;
+    this._onTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
-  onTouched: () => void = () => {};
+  validate(_: AbstractControl) {
+    return this.selectListControl?.errors;
+  }
 }

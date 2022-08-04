@@ -1,4 +1,4 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, forwardRef, Input, OnInit, Provider } from '@angular/core';
 import {
   AbstractControl,
@@ -8,6 +8,8 @@ import {
   NG_VALUE_ACCESSOR,
   Validator,
 } from '@angular/forms';
+import { filter } from 'rxjs';
+import { extractTouchedChanges } from 'src/assets/extractTouchedChanges';
 
 const DATE_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -34,32 +36,41 @@ export class DatePickerComponent
   @Input() icon: string;
   @Input() minDate: Date;
   @Input() maxDate: Date;
+  @Input() matTooltip: string = 'Date picker icon';
 
   @Input()
   get required(): boolean {
     return this._required;
   }
-  set required(value: boolean | string) {
+  set required(value: BooleanInput) {
     this._required = coerceBooleanProperty(value);
+  }
+
+  @Input()
+  get readonly(): boolean {
+    return this._readonly;
+  }
+  set readonly(value: BooleanInput) {
+    this._readonly = coerceBooleanProperty(value);
   }
 
   @Input()
   get dateOnly(): boolean {
     return this._dateOnly;
   }
-  set dateOnly(value: boolean | string) {
+  set dateOnly(value: BooleanInput) {
     this._dateOnly = coerceBooleanProperty(value);
   }
 
   isEditing = true;
   dateFieldControl = new FormControl('');
-  isReadonly = true;
   disabled = false;
 
-  private onTouched: Function;
+  private _onTouched: Function;
   private onChanged: Function;
   private _required: boolean;
   private _dateOnly: boolean;
+  private _readonly: boolean;
 
   constructor() {}
 
@@ -67,6 +78,12 @@ export class DatePickerComponent
     if (this.disabled) {
       this.dateFieldControl.disable();
     }
+  }
+
+  ngAfterViewInit() {
+    extractTouchedChanges(this.dateFieldControl)
+      .pipe(filter((touched) => touched))
+      .subscribe(() => this._onTouched());
   }
 
   writeValue(value: string): void {
@@ -78,7 +95,7 @@ export class DatePickerComponent
   }
 
   registerOnTouched(fn: () => void) {
-    this.onTouched = fn;
+    this._onTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean) {
@@ -98,8 +115,6 @@ export class DatePickerComponent
   }
 
   handleDeleteInput() {
-    this.isReadonly = false;
     this.dateFieldControl.setValue('');
-    this.isReadonly = true;
   }
 }

@@ -1,20 +1,33 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import {
+  Component,
+  forwardRef,
+  Input,
+  OnInit,
+  Provider,
+  ViewChild,
+} from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator,
+} from '@angular/forms';
 import { SelectListItem } from 'src/assets/ViewModel';
 import { GenericSelectComponent } from '../generic-select/generic-select.component';
+
+const BASIC_SELECT_FIELD_CONTROL_VALUE_ACCESSOR: Provider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => BasicSelectComponent),
+  multi: true,
+};
 
 @Component({
   selector: 'app-basic-select',
   templateUrl: './basic-select.component.html',
   styleUrls: ['./basic-select.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => BasicSelectComponent),
-      multi: true,
-    },
-  ],
+  providers: [BASIC_SELECT_FIELD_CONTROL_VALUE_ACCESSOR],
 })
 export class BasicSelectComponent implements ControlValueAccessor {
   @Input() items: SelectListItem[];
@@ -24,7 +37,7 @@ export class BasicSelectComponent implements ControlValueAccessor {
   get required(): boolean {
     return this._required;
   }
-  set required(value: any) {
+  set required(value: BooleanInput) {
     this._required = coerceBooleanProperty(value);
   }
 
@@ -34,8 +47,6 @@ export class BasicSelectComponent implements ControlValueAccessor {
   private _required: boolean;
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   writeValue(value: string): void {
     if (this.genericSelect) {

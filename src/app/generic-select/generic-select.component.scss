@@ -1,10 +1,8 @@
-@use "../../assets/custom-field-styles" as common;
+@use "../../assets/custom-field-styles.scss" as common;
 
-$fieldWidth: 30%;
 $minFieldWidth: 200px;
 
 :host ::ng-deep mat-form-field {
-  width: $fieldWidth;
   min-width: $minFieldWidth;
 }
 
@@ -26,7 +24,7 @@ $minFieldWidth: 200px;
   margin-top: 6px;
 }
 
-::ng-deep .cdk-overlay-container .cdk-overlay-pane .selectPanel {
+::ng-deep .cdk-overlay-container .cdk-overlay-pane .generic-select-panel {
   margin-top: 35px;
   margin-left: 8px;
 
